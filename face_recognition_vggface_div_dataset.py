@@ -31,18 +31,10 @@ def extract_face(filename, required_size=(224, 224)):
     # extract the bounding box from the first face
         x1, y1, width, height = results[0]['box']
         x2, y2 = x1 + width, y1 + height
-        #temp=cv2.rectangle(pixels,(x1,y1),(x2,y2),(0,0,255),2)
-        #cv2.imwrite('C:/Users/u27c79/Documents/Project/Face_recongnition_System/images/bound/{}.jpg'.format(filename),temp)
         # extract the face
         face = pixels[y1:y2,x1:x2 ]
-        #cv2.imshow("test",face)
-        #cv2.waitKey(0)
-        #cv2.destroyAllWindows()
         print(face.shape)
         face2=cv2.resize(face,required_size)
-        # resize pixels to the model size
-        #image = Image.fromarray(face)
-        #mage = image.resize(required_size)
         return face2
     
 #calculate face embeddings for a list of photo files
@@ -62,7 +54,7 @@ def get_embeddings(faces):
     return yhat
 
 def is_match(known_embedding, candidate_embedding, thresh=0.4):
-    	# calculate distance between embeddings
+    # calculate distance between embeddings
 	score = cosine(known_embedding, candidate_embedding)
 	if score <= thresh:
 		return 'face is Match and score={}'.format(score)
